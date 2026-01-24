@@ -20,7 +20,7 @@ class StrictTypeVisitor(ast.NodeVisitor):
 
 class Plugin:
     name: str = "strict_types"
-    version: str = "0.1.3"
+    version: str = "0.1.4"
 
     def __init__(self, tree: ast.AST) -> None:
         self.tree: ast.AST = tree
