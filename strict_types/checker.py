@@ -3,6 +3,8 @@
 import ast
 from typing import Any, Generator, List, Tuple, Type
 
+OKAY: Tuple[Type[Any], Type[Any]] = (ast.Subscript, ast.Attribute)
+
 
 class StrictTypeVisitor(ast.NodeVisitor):
     def __init__(self, errors: List[Tuple[int, int, str]]) -> None:
@@ -10,17 +12,18 @@ class StrictTypeVisitor(ast.NodeVisitor):
 
     def visit_Assign(self, node: ast.Assign) -> None:
         """Flag standard assignments like 'x = 1'"""
-        self.errors.append((
-            node.lineno,
-            node.col_offset,
-            "TYP001 missing type annotation for variable",
-        ))
+        if all(not isinstance(target, OKAY) for target in node.targets):
+            self.errors.append((
+                node.lineno,
+                node.col_offset,
+                "TYP001 missing type annotation for variable",
+            ))
         self.generic_visit(node)
 
 
 class Plugin:
     name: str = "strict_types"
-    version: str = "0.1.4"
+    version: str = "0.2.0"
 
     def __init__(self, tree: ast.AST) -> None:
         self.tree: ast.AST = tree
