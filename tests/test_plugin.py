@@ -25,3 +25,25 @@ def test_w_annotation() -> None:
 
     for _ in plugin.run():
         assert False  # not reached, no errors
+
+
+def test_dict_setitem() -> None:
+    """Test that no error is produced"""
+
+    code = "my_dict['my_key'] = 1"
+    tree = ast.parse(code)
+    plugin = Plugin(tree)
+
+    for _ in plugin.run():
+        assert False  # not reached, no errors
+
+
+def test_dot_notation() -> None:
+    """Test that no error is produced"""
+
+    code = "my_obj.my_attr = 1"
+    tree = ast.parse(code)
+    plugin = Plugin(tree)
+
+    for _ in plugin.run():
+        assert False  # not reached, no errors

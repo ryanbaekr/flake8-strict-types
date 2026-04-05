@@ -1,6 +1,6 @@
 [project]
 name = "flake8-strict-types"
-version = "0.1.4"
+version = "0.2.0"
 description = "A Flake8 plugin that forces type annotations on all assignments."
 readme = "README.md"
 license = "GPL-3.0-only"
