@@ -58,9 +58,9 @@ class StrictTypeVisitor(cst.CSTVisitor):
 
 class Plugin:
     name: str = "strict_types"
-    version: str = "0.3.0"
+    version: str = "0.3.1"
 
-    def __init__(self, lines: List[str]) -> None:
+    def __init__(self, tree: Any, filename: Any, lines: List[str]) -> None:
         self.source: str = "\n".join(lines)
 
     def run(self) -> Generator[Tuple[int, int, str, Type[Any]], None, None]:
