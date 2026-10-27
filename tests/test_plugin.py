@@ -89,7 +89,10 @@ def test_global_shadow() -> None:
 def test_nonlocal() -> None:
     """Test that no error is produced"""
 
-    code = "def outer():\n    my_int: int = 6\n    def inner():\n        nonlocal my_int\n        my_int = 7"
+    code = (
+        "def outer():\n    my_int: int = 6\n    def inner():"
+        "\n        nonlocal my_int\n        my_int = 7"
+    )
     lines = code.splitlines()
     plugin = Plugin(lines)
 
@@ -100,7 +103,10 @@ def test_nonlocal() -> None:
 def test_nonlocal_shadow() -> None:
     """Test that an error is produced"""
 
-    code = "def outer():\n    my_int: int = 6\n    def inner():\n        my_int = 7"
+    code = (
+        "def outer():\n    my_int: int = 6\n    def inner():"
+        "\n        my_int = 7"
+    )
     lines = code.splitlines()
     plugin = Plugin(lines)
 
@@ -114,7 +120,10 @@ def test_nonlocal_shadow() -> None:
 def test_nested_global() -> None:
     """Test that no error is produced"""
 
-    code = "my_int: int = 6\n\ndef outer():\n    def inner():\n        global my_int\n        my_int = 7"
+    code = (
+        "my_int: int = 6\n\ndef outer():\n    def inner():"
+        "\n        global my_int\n        my_int = 7"
+    )
     lines = code.splitlines()
     plugin = Plugin(lines)
 

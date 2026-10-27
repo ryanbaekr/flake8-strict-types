@@ -40,7 +40,8 @@ class StrictTypeVisitor(cst.CSTVisitor):
             # definitions in the current scope before the current assignment
             definitions = [
                 a for a in assignments
-                if self.get_metadata(PositionProvider, a.node).start.line
+                if hasattr(a, "node") and
+                self.get_metadata(PositionProvider, a.node).start.line
                 < pos.start.line
             ]
 
