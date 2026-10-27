@@ -58,10 +58,10 @@ class StrictTypeVisitor(cst.CSTVisitor):
 
 class Plugin:
     name: str = "strict_types"
-    version: str = "0.3.1"
+    version: str = "0.3.2"
 
     def __init__(self, tree: Any, filename: Any, lines: List[str]) -> None:
-        self.source: str = "\n".join(lines)
+        self.source: str = "".join(lines)
 
     def run(self) -> Generator[Tuple[int, int, str, Type[Any]], None, None]:
         errors: List[Tuple[int, int, str]] = []
