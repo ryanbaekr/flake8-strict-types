@@ -8,7 +8,7 @@ def test_no_annotation() -> None:
 
     code = "x = 1"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -22,7 +22,7 @@ def test_w_annotation() -> None:
 
     code = "x: int = 1"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -33,7 +33,7 @@ def test_dict_setitem() -> None:
 
     code = "my_dict['my_key'] = 1"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -44,7 +44,7 @@ def test_dot_notation() -> None:
 
     code = "my_obj.my_attr = 1"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -55,7 +55,7 @@ def test_reassignment() -> None:
 
     code = "my_int: int = 6\nmy_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -66,7 +66,7 @@ def test_global() -> None:
 
     code = "my_int: int = 6\n\ndef foo():\n    global my_int\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -77,7 +77,7 @@ def test_global_shadow() -> None:
 
     code = "my_int: int = 6\n\ndef foo():\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -94,7 +94,7 @@ def test_nonlocal() -> None:
         "\n        nonlocal my_int\n        my_int = 7"
     )
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -108,7 +108,7 @@ def test_nonlocal_shadow() -> None:
         "\n        my_int = 7"
     )
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -125,7 +125,7 @@ def test_nested_global() -> None:
         "\n        global my_int\n        my_int = 7"
     )
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -136,7 +136,7 @@ def test_global_no_definition() -> None:
 
     code = "def foo():\n    global my_int\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -150,7 +150,7 @@ def test_class_attribute() -> None:
 
     code = "my_int: int = 6\n\nclass Foo:\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -164,7 +164,7 @@ def test_class_reassignment() -> None:
 
     code = "class Foo:\n    my_int: int = 6\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -175,7 +175,7 @@ def test_bare_annotation() -> None:
 
     code = "my_int: int\n\ndef foo():\n    global my_int\n    my_int = 7"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) == 0
@@ -186,7 +186,7 @@ def test_sibling_scopes() -> None:
 
     code = "def foo():\n    x: int = 1\ndef bar():\n    x = 2"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
@@ -200,7 +200,7 @@ def test_builtin_shadow() -> None:
 
     code = "len = 5"
     lines = code.splitlines()
-    plugin = Plugin(lines)
+    plugin = Plugin(None, None, lines)
 
     run_output = [output for output in plugin.run()]
     assert len(run_output) > 0
